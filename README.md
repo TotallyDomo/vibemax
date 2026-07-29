@@ -87,16 +87,29 @@ a POSIX shell on Windows too - keep the forward slashes.)
 To turn it off mid-conversation, say so - "drop the vibemax style" works. Permanent
 off is removing the line you added.
 
+Do turn it off for design and exploration sessions. There, the narration is how you
+steer, and suppressing it is wrong on purpose - vibemax is built for
+execution-shaped work, where you are supervising a task rather than thinking one
+through. DESIGN.md lists the rest of the places it does not fit.
+
 ## Trust surface
 
-The skill is markdown only - `SKILL.md` is all the agent ever loads. Nothing runs
-at install time or use time, and nothing here fetches or sends anything anywhere.
-`benchmarks/` holds the A/B harness and its run records; it runs only when you run
-it. (The per-request narration figures above are production telemetry, not harness
-output - DESIGN.md keeps the two evidence sources apart.) The one script that runs on its own is CI's
+The skill is markdown only - `SKILL.md` is all the agent ever loads. Installing it
+runs nothing, and using it fetches nothing and sends nothing anywhere.
+
+`benchmarks/` is the one part with a runtime cost, and only if you run it
+yourself. `harness.py` spawns `claude -p` child sessions: the scripted prompts
+and the contents of the sandbox repo go to the Anthropic API, and the run is
+billed to your account - the published grid came to about $233. Nothing in that
+directory runs on its own. (The per-request narration figures above are
+production telemetry, not harness output - DESIGN.md keeps the two evidence
+sources apart.)
+
+The only things that run by themselves are two CI guards on push:
 `scripts/agent-config-guard.sh`, which checks that no stray agent config got
-committed to this repo. The optional hook above is one you write yourself into
-your own config; the skill ships no code.
+committed here, and `scripts/local_path_guard.py`, which checks that no absolute
+path off somebody's machine got committed into file content. The optional hook
+above is one you write yourself into your own config; the skill ships no code.
 
 ## License
 

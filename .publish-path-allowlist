@@ -1,0 +1,11 @@
+# Absolute paths this repo publishes on purpose, one prefix per line.
+# Anything else matching an absolute local path in tracked content fails
+# scripts/local-path-guard.sh in CI. Prefixes are matched with forward
+# slashes and collapsed separators, so one entry covers C:\x, C:\\x and C:/x.
+#
+# The benchmark run records keep each job's absolute sandbox path so a reader
+# can line a row up against its raw stream. The author's local root was
+# replaced with this neutral one, in equal-length substitutions, so every
+# recorded character and token count is still the measured value - see
+# benchmarks/README.md and the last amendment in benchmarks/freeze.txt.
+C:/work
