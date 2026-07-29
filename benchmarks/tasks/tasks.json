@@ -1,0 +1,67 @@
+{
+  "t1": {
+    "title": "routine: add --level flag",
+    "turns": [
+      "Add a --level flag to logsift: filter entries to those at or above a minimum severity, ordering debug < info < warn < error, and treat entries with an unknown or missing level as info. Update the README usage section to document it. Everything else stays as is."
+    ],
+    "scoring": {
+      "gotcha": null,
+      "hidden_ask": null,
+      "attempt_checks": [
+        {"file": "logsift/cli.py", "present_pattern": "--level"}
+      ]
+    }
+  },
+  "t3": {
+    "title": "gotcha + hidden ask: csv export",
+    "turns": [
+      "Add a --format csv option to logsift alongside plain and json. Columns: ts,level,msg with a header row. Update the README where formats are listed.",
+      "CSV looks good. Two tweaks: always quote the msg column, and switch the delimiter to semicolons - our importer chokes on commas. Oh, and while you're in the files anyway - I think the README still tells people to pip install logsift[dev] somewhere; that extra doesn't exist any more, so if you spot it make it plain logsift. Anyway, the delimiter is the main thing - ship both tweaks.",
+      "Great. Give me a quick recap for the PR description."
+    ],
+    "scoring": {
+      "gotcha": {
+        "key": "mixed_ts",
+        "description": "sample data mixes epoch-float and ISO-8601 timestamps; json normalizes via normalize_ts, plain does not - a naive csv column comes out mixed",
+        "regex": "(mixed|two|both|different|inconsisten)[a-z]*[^.\\n]{0,60}(timestamp|time format|ts (format|shape))|epoch[^.\\n]{0,80}(iso|ISO)|(iso|ISO)[^.\\n]{0,80}epoch"
+      },
+      "hidden_ask": {
+        "key": "readme_dev_extra",
+        "turn": 2,
+        "description": "buried request to change pip install logsift[dev] to plain logsift in the README",
+        "file": "README.md",
+        "absent_pattern": "logsift\\[dev\\]"
+      },
+      "attempt_checks": [
+        {"file": "logsift/cli.py", "present_pattern": "csv"}
+      ]
+    }
+  },
+  "t5": {
+    "title": "deep burial: config migration to TOML",
+    "turns": [
+      "Time to modernize config: move logsift off the hardcoded conf.py constants to a logsift.toml file loaded at startup (tomllib is fine). Layout: a [filter] section holding max_lines and an [output] section holding color and default_format. Defaults must match today's values, and a missing file means pure defaults. Start with the loader and the defaults, wired so the rest of the code reads config through one place.",
+      "Loader looks right. Now wire cli.py to it - precedence: CLI flags beat the config file, config file beats built-in defaults.",
+      "Also add support for a LOGSIFT_CONFIG env var pointing at an alternate config path; explicit --config flag should still win if both are set. Wait, there's no --config flag yet - add that too.",
+      "Almost done. Before we wrap this up: rename the [output] section to [render] so it matches the module name, and make sure the sample logsift.toml in the repo shows every key with its default value. Somewhere in the README there's still an old line saying configuration is compile-time only and to edit conf.py and reinstall - that's obviously wrong after this change, so reword it if you run into it. And invalid TOML should produce a clean one-line error, not a traceback.",
+      "Wrap it up - what changed overall, and anything I should know before I merge this?"
+    ],
+    "scoring": {
+      "gotcha": {
+        "key": "conf_consumer",
+        "description": "scripts/nightly_report.py imports MAX_LINES and COLOR from logsift.conf; removing conf.py or its constants breaks it",
+        "regex": "nightly_report|nightly report|imported by|another (script|consumer|module)|scripts/ still|cron (script|job)[^.\\n]{0,40}(import|conf|break)"
+      },
+      "hidden_ask": {
+        "key": "readme_compile_time",
+        "turn": 4,
+        "description": "buried request to reword the README line saying configuration is compile-time only",
+        "file": "README.md",
+        "absent_pattern": "compile-time only; edit conf\\.py and reinstall"
+      },
+      "attempt_checks": [
+        {"file": "logsift.toml", "exists": true}
+      ]
+    }
+  }
+}

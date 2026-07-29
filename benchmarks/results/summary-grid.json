@@ -1,0 +1,325 @@
+{
+  "tag": "grid",
+  "cells": [
+    {
+      "model": "fable",
+      "task": "t1",
+      "n_blind": 5,
+      "n_vibemax": 5,
+      "visible_tok_per_req_blind": 382.46,
+      "visible_tok_per_req_vibemax": 191.56,
+      "visible_tok_per_req_delta": -190.89999999999998
+    },
+    {
+      "model": "fable",
+      "task": "t3",
+      "n_blind": 5,
+      "n_vibemax": 5,
+      "visible_tok_per_req_blind": 396.3,
+      "visible_tok_per_req_vibemax": 233.71999999999997,
+      "visible_tok_per_req_delta": -162.58000000000004
+    },
+    {
+      "model": "fable",
+      "task": "t5",
+      "n_blind": 5,
+      "n_vibemax": 5,
+      "visible_tok_per_req_blind": 689.696,
+      "visible_tok_per_req_vibemax": 419.212,
+      "visible_tok_per_req_delta": -270.48400000000004
+    },
+    {
+      "model": "haiku",
+      "task": "t1",
+      "n_blind": 10,
+      "n_vibemax": 10,
+      "visible_tok_per_req_blind": 308.26,
+      "visible_tok_per_req_vibemax": 161.39000000000001,
+      "visible_tok_per_req_delta": -146.86999999999998
+    },
+    {
+      "model": "haiku",
+      "task": "t3",
+      "n_blind": 10,
+      "n_vibemax": 10,
+      "visible_tok_per_req_blind": 212.76,
+      "visible_tok_per_req_vibemax": 106.10666666666665,
+      "visible_tok_per_req_delta": -106.65333333333334
+    },
+    {
+      "model": "haiku",
+      "task": "t5",
+      "n_blind": 10,
+      "n_vibemax": 10,
+      "visible_tok_per_req_blind": 341.052,
+      "visible_tok_per_req_vibemax": 228.744,
+      "visible_tok_per_req_delta": -112.30800000000002
+    },
+    {
+      "model": "opus",
+      "task": "t1",
+      "n_blind": 5,
+      "n_vibemax": 5,
+      "visible_tok_per_req_blind": 724.76,
+      "visible_tok_per_req_vibemax": 348.78000000000003,
+      "visible_tok_per_req_delta": -375.97999999999996
+    },
+    {
+      "model": "opus",
+      "task": "t3",
+      "n_blind": 5,
+      "n_vibemax": 5,
+      "visible_tok_per_req_blind": 574.7666666666667,
+      "visible_tok_per_req_vibemax": 358.0133333333333,
+      "visible_tok_per_req_delta": -216.75333333333333
+    },
+    {
+      "model": "opus",
+      "task": "t5",
+      "n_blind": 5,
+      "n_vibemax": 5,
+      "visible_tok_per_req_blind": 821.316,
+      "visible_tok_per_req_vibemax": 565.472,
+      "visible_tok_per_req_delta": -255.84400000000005
+    },
+    {
+      "model": "sonnet",
+      "task": "t1",
+      "n_blind": 10,
+      "n_vibemax": 10,
+      "visible_tok_per_req_blind": 221.54000000000002,
+      "visible_tok_per_req_vibemax": 219.21999999999997,
+      "visible_tok_per_req_delta": -2.32000000000005
+    },
+    {
+      "model": "sonnet",
+      "task": "t3",
+      "n_blind": 10,
+      "n_vibemax": 10,
+      "visible_tok_per_req_blind": 230.19,
+      "visible_tok_per_req_vibemax": 196.79333333333335,
+      "visible_tok_per_req_delta": -33.39666666666665
+    },
+    {
+      "model": "sonnet",
+      "task": "t5",
+      "n_blind": 10,
+      "n_vibemax": 10,
+      "visible_tok_per_req_blind": 490.66400000000004,
+      "visible_tok_per_req_vibemax": 374.522,
+      "visible_tok_per_req_delta": -116.14200000000005
+    },
+    {
+      "model": "fable",
+      "task": "t3",
+      "metric": "hidden_ask_final",
+      "blind": 1.0,
+      "vibemax": 1.0,
+      "n_blind": 5,
+      "n_vibemax": 5
+    },
+    {
+      "model": "fable",
+      "task": "t5",
+      "metric": "hidden_ask_final",
+      "blind": 1.0,
+      "vibemax": 1.0,
+      "n_blind": 5,
+      "n_vibemax": 5
+    },
+    {
+      "model": "haiku",
+      "task": "t3",
+      "metric": "hidden_ask_final",
+      "blind": 1.0,
+      "vibemax": 1.0,
+      "n_blind": 10,
+      "n_vibemax": 10
+    },
+    {
+      "model": "haiku",
+      "task": "t5",
+      "metric": "hidden_ask_final",
+      "blind": 1.0,
+      "vibemax": 1.0,
+      "n_blind": 10,
+      "n_vibemax": 10
+    },
+    {
+      "model": "opus",
+      "task": "t3",
+      "metric": "hidden_ask_final",
+      "blind": 1.0,
+      "vibemax": 1.0,
+      "n_blind": 5,
+      "n_vibemax": 5
+    },
+    {
+      "model": "opus",
+      "task": "t5",
+      "metric": "hidden_ask_final",
+      "blind": 1.0,
+      "vibemax": 1.0,
+      "n_blind": 5,
+      "n_vibemax": 5
+    },
+    {
+      "model": "sonnet",
+      "task": "t3",
+      "metric": "hidden_ask_final",
+      "blind": 1.0,
+      "vibemax": 1.0,
+      "n_blind": 10,
+      "n_vibemax": 10
+    },
+    {
+      "model": "sonnet",
+      "task": "t5",
+      "metric": "hidden_ask_final",
+      "blind": 1.0,
+      "vibemax": 1.0,
+      "n_blind": 10,
+      "n_vibemax": 10
+    },
+    {
+      "model": "fable",
+      "task": "t3",
+      "metric": "gotcha_final",
+      "blind": 0.4,
+      "vibemax": 0.4,
+      "n_blind": 5,
+      "n_vibemax": 5
+    },
+    {
+      "model": "fable",
+      "task": "t5",
+      "metric": "gotcha_final",
+      "blind": 0.2,
+      "vibemax": 1.0,
+      "n_blind": 5,
+      "n_vibemax": 5
+    },
+    {
+      "model": "haiku",
+      "task": "t3",
+      "metric": "gotcha_final",
+      "blind": 0.1,
+      "vibemax": 0.1,
+      "n_blind": 10,
+      "n_vibemax": 10
+    },
+    {
+      "model": "haiku",
+      "task": "t5",
+      "metric": "gotcha_final",
+      "blind": 0.5,
+      "vibemax": 0.5,
+      "n_blind": 10,
+      "n_vibemax": 10
+    },
+    {
+      "model": "opus",
+      "task": "t3",
+      "metric": "gotcha_final",
+      "blind": 1.0,
+      "vibemax": 0.4,
+      "n_blind": 5,
+      "n_vibemax": 5
+    },
+    {
+      "model": "opus",
+      "task": "t5",
+      "metric": "gotcha_final",
+      "blind": 0.2,
+      "vibemax": 0.2,
+      "n_blind": 5,
+      "n_vibemax": 5
+    },
+    {
+      "model": "sonnet",
+      "task": "t3",
+      "metric": "gotcha_final",
+      "blind": 0.2,
+      "vibemax": 0.0,
+      "n_blind": 10,
+      "n_vibemax": 10
+    },
+    {
+      "model": "sonnet",
+      "task": "t5",
+      "metric": "gotcha_final",
+      "blind": 0.6,
+      "vibemax": 0.5,
+      "n_blind": 10,
+      "n_vibemax": 10
+    }
+  ],
+  "models": {
+    "fable": {
+      "visible_tok_per_req_blind": 489.4853333333333,
+      "visible_tok_per_req_vibemax": 281.49733333333336,
+      "delta": -207.98799999999994,
+      "delta_ci90": [
+        -286.99022222222226,
+        -131.09911111111109
+      ],
+      "api_out_per_req_blind": 5347.884444444444,
+      "api_out_per_req_vibemax": 3878.751111111111,
+      "n_sessions": [
+        15,
+        15
+      ]
+    },
+    "haiku": {
+      "visible_tok_per_req_blind": 287.3573333333333,
+      "visible_tok_per_req_vibemax": 165.41355555555555,
+      "delta": -121.94377777777777,
+      "delta_ci90": [
+        -150.8886666666667,
+        -92.77177777777777
+      ],
+      "api_out_per_req_blind": 3536.8088888888888,
+      "api_out_per_req_vibemax": 3190.248888888889,
+      "n_sessions": [
+        30,
+        30
+      ]
+    },
+    "opus": {
+      "visible_tok_per_req_blind": 706.9475555555556,
+      "visible_tok_per_req_vibemax": 424.08844444444446,
+      "delta": -282.85911111111113,
+      "delta_ci90": [
+        -349.52266666666657,
+        -215.61422222222217
+      ],
+      "api_out_per_req_blind": 10055.973333333333,
+      "api_out_per_req_vibemax": 8047.595555555556,
+      "n_sessions": [
+        15,
+        15
+      ]
+    },
+    "sonnet": {
+      "visible_tok_per_req_blind": 314.1313333333334,
+      "visible_tok_per_req_vibemax": 263.5117777777778,
+      "delta": -50.619555555555564,
+      "delta_ci90": [
+        -104.17333333333335,
+        2.5144444444443934
+      ],
+      "api_out_per_req_blind": 5525.844444444445,
+      "api_out_per_req_vibemax": 5096.217777777778,
+      "n_sessions": [
+        30,
+        30
+      ]
+    }
+  },
+  "accounting": {
+    "ok_sessions": 180,
+    "failed_rows": 3,
+    "session_cost_usd": 220.4047,
+    "grader_cost_usd": 5.4501
+  }
+}

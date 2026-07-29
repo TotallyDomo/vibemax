@@ -1,0 +1,91 @@
+{
+  "tag": "pilot",
+  "cells": [
+    {
+      "model": "haiku",
+      "task": "t1",
+      "n_blind": 2,
+      "n_vibemax": 2,
+      "visible_tok_per_req_blind": 365.0,
+      "visible_tok_per_req_vibemax": 61.1,
+      "visible_tok_per_req_delta": -303.9
+    },
+    {
+      "model": "haiku",
+      "task": "t3",
+      "n_blind": 2,
+      "n_vibemax": 2,
+      "visible_tok_per_req_blind": 206.0,
+      "visible_tok_per_req_vibemax": 129.21666666666667,
+      "visible_tok_per_req_delta": -76.78333333333333
+    },
+    {
+      "model": "haiku",
+      "task": "t5",
+      "n_blind": 2,
+      "n_vibemax": 2,
+      "visible_tok_per_req_blind": 339.04999999999995,
+      "visible_tok_per_req_vibemax": 217.63,
+      "visible_tok_per_req_delta": -121.41999999999996
+    },
+    {
+      "model": "haiku",
+      "task": "t3",
+      "metric": "hidden_ask_final",
+      "blind": 1.0,
+      "vibemax": 1.0,
+      "n_blind": 2,
+      "n_vibemax": 2
+    },
+    {
+      "model": "haiku",
+      "task": "t5",
+      "metric": "hidden_ask_final",
+      "blind": 1.0,
+      "vibemax": 1.0,
+      "n_blind": 2,
+      "n_vibemax": 2
+    },
+    {
+      "model": "haiku",
+      "task": "t3",
+      "metric": "gotcha_final",
+      "blind": 0.5,
+      "vibemax": 0.5,
+      "n_blind": 2,
+      "n_vibemax": 2
+    },
+    {
+      "model": "haiku",
+      "task": "t5",
+      "metric": "gotcha_final",
+      "blind": 1.0,
+      "vibemax": 1.0,
+      "n_blind": 2,
+      "n_vibemax": 2
+    }
+  ],
+  "models": {
+    "haiku": {
+      "visible_tok_per_req_blind": 303.34999999999997,
+      "visible_tok_per_req_vibemax": 135.98222222222222,
+      "delta": -167.36777777777775,
+      "delta_ci90": [
+        -256.99666666666667,
+        -83.44555555555556
+      ],
+      "api_out_per_req_blind": 3138.077777777778,
+      "api_out_per_req_vibemax": 2861.1,
+      "n_sessions": [
+        6,
+        6
+      ]
+    }
+  },
+  "accounting": {
+    "ok_sessions": 12,
+    "failed_rows": 0,
+    "session_cost_usd": 2.1841,
+    "grader_cost_usd": 0.32492
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "tag": "pilot",
+  "models": [
+    {"key": "haiku", "id": "claude-haiku-4-5-20251001"}
+  ],
+  "conditions": ["blind", "vibemax"],
+  "tasks": ["t1", "t3", "t5"],
+  "n": 2,
+  "concurrency": 3,
+  "cost_cap_usd": 20,
+  "turn_timeout_s": 900,
+  "max_turn_retries": 3,
+  "max_session_restarts": 2
+}

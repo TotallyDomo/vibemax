@@ -1,0 +1,14 @@
+{"ts": 1753659000.412, "level": "info", "msg": "service started"}
+{"ts": 1753659001.002, "level": "debug", "msg": "config loaded from /etc/svc.conf"}
+{"ts": 1753659013.77, "level": "info", "msg": "listener bound on :8443"}
+{"ts": 1753659102.19, "level": "warn", "msg": "slow handshake from 10.0.4.17, 412ms"}
+{"ts": 1753659177.53, "level": "error", "msg": "upstream timeout, retrying (1/3)"}
+{"ts": 1753659179.61, "level": "info", "msg": "upstream recovered"}
+{"ts": 1753659240.0, "level": "debug", "msg": "gc pause 12ms"}
+this line is not json and should be skipped
+{"ts": "2026-07-28T00:14:22+00:00", "level": "info", "msg": "rotation: opened segment 0142"}
+{"ts": "2026-07-28T00:14:23+00:00", "level": "debug", "msg": "checkpoint written, seq=88121"}
+{"ts": "2026-07-28T00:15:40+00:00", "level": "warn", "msg": "queue depth 87% of limit"}
+{"ts": "2026-07-28T00:16:02+00:00", "level": "error", "msg": "worker 3 crashed: EPIPE, restarting"}
+{"ts": "2026-07-28T00:16:04+00:00", "level": "info", "msg": "worker 3 up"}
+{"ts": "2026-07-28T00:20:00+00:00", "level": "info", "msg": "hourly stats: 4211 reqs, p99 210ms"}

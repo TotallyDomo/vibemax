@@ -1,0 +1,23 @@
+# Frozen 2026-07-28T11:46:03Z after pilot (12/12 ok, no fixes). Grid runs this exact tree.
+57acfc32020dbfdd6bcaae8af97f67f42470c72622a5d698684889d4d4362939  analyze.py
+1c5efc880bb5d61184f34a66fb11e5ad558783bf73efde6da67456c96c353597  contract-vibemax.md
+c802827f01b7db5d6191102a1b53d808871c98fd05e529cba35c178b060f8708  grade.py
+28fc1715d6e21e45791248de6a1562565b12869aa972132cf7c0106f552c3885  grid.json
+0c7470025c2092b5a4b1719a8c48d6a325465f00146b2d775268ae85a775a638  harness.py
+a5d257bab91684b76c5119c480012d56f802441c62562f4fb65eedb07ce134d3  hooks-off.json
+8a14519bf1c15c021ff00e31a12c96d6c7e2ef9ba7500b8fc74c937ac3f85eec  pilot.json
+35d7ea98a276b05fa942fbddee225487f0fa29d6f71f977cba02576ec319c2d1  smoke_probe.py
+9b74c883e4e740bedfb11c870b90e67b22c0c5dd671114687c95b711181af898  tasks/tasks.json
+7096ee831ca314ccd25fa4ff885cedcb3487d6d0444d8f4aed8561f9254ee94b  tasks/template/README.md
+112b9736b2131fa9fda89cc96f795856592bb74284ce6d5bb8bc48b0fc3f024b  tasks/template/data/sample.jsonl
+650d805f43776ecaf98774b91372226d0a3e19c0703a106bc7d65cd43e8e53ab  tasks/template/logsift/__init__.py
+9c25628a6b59f2bea61fa19df1ef4db05bc74a391752a28cf1a0840ca7488694  tasks/template/logsift/cli.py
+ef278894043dd4fa1056b26b2de38a26f917bb19ca1d9502a123975214d3cc4e  tasks/template/logsift/conf.py
+77f724fbb0d1279e8940577047ffedbfebd974a1e0da2774d66b7438243bad36  tasks/template/logsift/filters.py
+d156bde6d6836c675782dc8598725d2ed2861803efd42a21153e1df4c133268f  tasks/template/logsift/render.py
+e36e0f0bed7c4e096992cd884c468f33831dfe5ed1803c4b12a2f6727facad11  tasks/template/scripts/nightly_report.py
+# AMENDED 2026-07-28T12:23:30Z: harness.py sandbox-cleanup fix after a Windows rmtree crash resuming a killed run (read-only .git files defeated ignore_errors; worker exceptions now become failed rows, not run aborts). Prompts, tasks, metrics, models unchanged. New harness.py sha256: 59531e9b265096bcb109a3d7fde980c0134006a4e105f899c0cae0e08d224930
+# AMENDED 2026-07-28T16:29:39Z: grade.py checkpoint fix - grader-error rows no longer count as done, so a rerun re-grades them (the 5h usage window died mid-grading). Rubric and metrics unchanged. New grade.py sha256: c6336c50075a4dfe89c71918f889c7ef07daf7c65f039fa5ec95893105597d91
+# AMENDED 2026-07-28T16:38:56Z: opus arm reduced n=10 -> n=5 per cell (30 jobs, filter grid-opus-.*-r0[1-5]$) by DOMO budget call mid-run, before any opus grading or analysis; 4 jobs already done (all r01/r02) retained. Harness, prompts, tasks, metrics, models unchanged. Opus cells are directional-only like fable.
+# AMENDED 2026-07-29T12:08:40Z: harness.py child launch config fix post-grid-v1, before the public flip (M0027-S14). build_turn_cmd switched from --permission-mode acceptEdits + an --allowedTools list missing Bash to --permission-mode bypassPermissions with no allowlist, matching README.md Run discipline (full permissions inside the scrubbed sandbox; the sandbox is the safety boundary). This is the fix for the grid v1 defect disclosed in RESULTS.md - RESULTS.md itself is unchanged, published as measured under the old (defective) harness. No paid grid re-run; verified via smoke_probe.py plus one filtered pilot.json haiku/t1/blind job (custom --raw-dir/--results, not the tracked pilot results), raw stream showed 2 Bash tool_uses and zero permission-denied/error tool_results. Prompts, tasks, metrics, models unchanged. New harness.py sha256: 222461f6e933922e45f6cee90ea62e1670b651d71ec87b5f8bb3b2778dad1340
+# AMENDED 2026-07-29T16:36:15Z: post-publication redaction of the author's local paths; no measurement touched. harness.py and thinking_decomp.py now default their raw-output root to $VIBEMAX_BENCH_RAW or <tempdir>/vibemax-bench instead of a hardcoded local path, and smoke_probe.py takes its isolation markers from $VIBEMAX_PROBE_MARKERS with generic defaults instead of hardcoded local ones. results/grid.jsonl and results/pilot.jsonl had that local root replaced with a neutral one wherever it appeared (every ws_path, and four visible_transcript rows where a model quoted a path). Every substitution is equal-length, so both files are byte-identical in size and every recorded char/token/cost figure is the measured value - verified by re-parsing all 195 rows and re-summing the transcripts. Prompts, tasks, metrics, models, grading, and all published numbers unchanged. New sha256: harness.py c7b30c484aa538bc6dcb5668022edbf3ce4e379785aa7ba84e92afaa9873c1a6, smoke_probe.py 2d95a4377b9389db7beb85e2286da7ab8604f3b6be253e8e9ef8469a06bf1b32

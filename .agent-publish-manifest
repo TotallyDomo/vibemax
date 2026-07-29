@@ -1,0 +1,9 @@
+# Agent-config-shaped paths that are deliberately published from this repo,
+# one exact path per line. Anything matching CLAUDE.md / AGENTS.md / MEMORY.md /
+# .claude/ / .agents/ / .mcp.json that is tracked but not listed here fails
+# scripts/agent-config-guard.sh in CI.
+#
+# This repo publishes none of them: SKILL.md is the deliverable, and the
+# CLAUDE.md the README talks about is the reader's own config file, not one
+# shipped from here. Keep this list empty unless a reviewed, user-facing entry
+# is added on purpose.

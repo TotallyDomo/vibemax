@@ -1,0 +1,17 @@
+{
+  "tag": "grid",
+  "models": [
+    {"key": "haiku", "id": "claude-haiku-4-5-20251001"},
+    {"key": "sonnet", "id": "claude-sonnet-5"},
+    {"key": "opus", "id": "claude-opus-4-8"},
+    {"key": "fable", "id": "claude-fable-5"}
+  ],
+  "conditions": ["blind", "vibemax"],
+  "tasks": ["t1", "t3", "t5"],
+  "n": 10,
+  "concurrency": 4,
+  "cost_cap_usd": 650,
+  "turn_timeout_s": 900,
+  "max_turn_retries": 3,
+  "max_session_restarts": 2
+}
