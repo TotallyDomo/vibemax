@@ -22,12 +22,19 @@ from pathlib import Path
 
 ALLOWLIST = Path(".publish-path-allowlist")
 
-# Drive-absolute (C:\x\y, C:\\x\\y, C:/x/y) and POSIX per-user home paths.
-# Two guards against false positives: the lookbehind keeps "https://host/path"
-# and prose like "moves:\nNext" from reading as drive letters, and the drive
-# form needs two or more segments so a format string like "%d:\n" cannot match.
-# Cost of that second rule: a bare "C:\Name" would slip through. Everything
-# that identifies a machine - a home dir, a nested project root - has depth.
+# Drive-absolute (X:\<dir>\<dir>, either slash, singled or doubled) and POSIX
+# per-user home paths. Two guards against false positives: the lookbehind keeps
+# "https://host/path" and prose like "moves:\nNext" from reading as drive
+# letters, and the drive form needs two or more segments so a format string
+# like "%d:\n" cannot match. Cost of that second rule: a bare drive plus one
+# segment slips through. Everything that identifies a machine - a home dir, a
+# nested project root - has depth.
+#
+# Examples in this file are written with <dir> placeholders on purpose: the
+# guard scans every tracked file including itself, and a literal specimen path
+# here would be a self-trip. It reads the working tree but only for files git
+# tracks, so verify a change from a fresh clone - an untracked new file is
+# invisible to it, which is exactly how this comment shipped broken once.
 PATTERN = re.compile(
     r"(?<![A-Za-z0-9_])"
     r"(?:[A-Za-z]:[\\/]{1,2}[A-Za-z0-9_.\-]+(?:[\\/]{1,2}[A-Za-z0-9_.\-]+)+"
