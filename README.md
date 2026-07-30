@@ -47,9 +47,11 @@ The contract (under 400 input tokens) loads once per session and rides the promp
 there. The tokenomics work out: Claude prices output at 5x input and cached input at
 0.1x input, so the cached contract carries for the equivalent of roughly 7-10 output
 tokens per request - about one narrated sentence. In our own transcripts, switching it
-on cut visible narration by 9-14 output tokens per request, so the style pays for
-itself with a small bonus. Attention is still the point; the token delta is a rounding
-error either way.
+on cut visible narration by 9-14 output tokens per request, and a suppressed token is
+worth more than its face output rate: it would also have been cached once and re-read on
+every later turn of the session, which at typical session lengths puts the saving nearer
+14-21 output-token-equivalents. The style pays for itself with room to spare. Attention
+is still the point; the token delta is a rounding error either way.
 
 **Hook variant - strongest adherence in very long sessions.** A `UserPromptSubmit`
 hook re-injects the style on every prompt, so it never fades as the context grows. The

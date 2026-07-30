@@ -155,9 +155,28 @@ Reported for honesty, not as a pitch. The contract costs about 400 input tokens 
 session and then rides the prompt cache. At current pricing - cached input around 0.1x the
 input rate, output around 5x - carrying it costs the equivalent of roughly 7-10 output
 tokens per request. Measured across about 28,000 requests in our own transcripts, enabling
-the style cut visible output by 9-14 tokens per request, varying by model. Net: neutral to
-slightly positive, and a rounding error of the bill in either direction. If token spend is
-the problem you are solving, prune tool payloads; a response style is the wrong lever.
+the style cut visible output by 9-14 tokens per request, varying by model.
+
+Comparing those two figures directly understates the saving, because they are not priced
+the same way. The 7-10 already includes the contract's cache tail - it is re-read on every
+request. A suppressed narration token has a tail too: it would have been written into the
+cache once (2x input at the one-hour TTL) and then re-read on every remaining turn of the
+session (0.1x each), so its lifetime price sits above the 5x face output rate. How far
+above depends on where in the session it was emitted - roughly 1.6x face on the first of
+twelve turns, 2.4x at fifty turns, 3.4x at a hundred - and mid-task narration is emitted
+early, which is the worst position there is. A closing report, emitted last, costs face
+value exactly, though in an interactive session it is not really last. Priced
+symmetrically, the 9-14 tokens saved are worth nearer 14-21 output-token-equivalents per
+request.
+
+One item is left out of the 7-10 and pulls the other way: the contract's own one-time cache
+write costs 400 tokens at 2x input, which on a cold prefix adds roughly as much again once
+amortized over a session's API turns. In our own sessions the prefix is usually already
+warm from the previous one, so the read-only figure holds; a cold start pays it.
+
+Net: positive but small, and a rounding error of the bill in either direction. If token
+spend is the problem you are solving, prune tool payloads; a response style is the wrong
+lever.
 
 ## The controlled comparison
 
