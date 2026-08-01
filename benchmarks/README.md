@@ -34,10 +34,11 @@ and a model grid, run headless through `claude -p`.
 - `harness.py` - driver (sandboxing, retries, checkpointed results jsonl).
 - `grade.py` - deterministic checks merged with a fixed Haiku rubric pass.
 - `analyze.py` - per-cell tables, pooled deltas, bootstrap CI.
-- `smoke_probe.py` - run first: proves isolation (no hooks or enclosing agent
-  config bleed into children), auth path, model IDs, resume mechanics. Set
-  `VIBEMAX_PROBE_MARKERS` to the strings that identify *your* enclosing setup;
-  the probe only catches leakage it is told to look for.
+- `smoke_probe.py` - run first: checks the sandbox for an enclosing
+  CLAUDE.md/AGENTS.md, hook and enclosing-agent-config leakage into children,
+  auth path, model IDs, resume mechanics. The leakage check is limited to the
+  `VIBEMAX_PROBE_MARKERS` strings you configure to match *your* enclosing
+  setup - a CLEAN verdict is not proof of isolation beyond those markers.
 - `hooks-off.json` - settings overlay passed to every child session.
 - `grid.json` / `pilot.json` - the full grid and the smoke-gate pilot.
 

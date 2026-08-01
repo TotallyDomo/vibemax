@@ -1,8 +1,9 @@
 """Pre-run smoke checks: isolation, auth path, model IDs, resume mechanics.
 
-Run this before the pilot. It must print CLEAN for the isolation probe and OK
-for every model ID before any benchmark session is trusted. Cheap: a handful of
-one-line Haiku calls plus one-line calls per model ID.
+Run this before the pilot. It must print PASS for the parent-config probe,
+CLEAN for the isolation probe, and OK for every model ID before any benchmark
+session is trusted. Cheap: a handful of one-line Haiku calls plus one-line
+calls per model ID.
 """
 
 import json
@@ -34,6 +35,18 @@ PROBE = (
 )
 
 
+def find_enclosing_configs(path):
+    """CLAUDE.md/AGENTS.md in any parent of path - what Claude Code's own
+    upward walk would find regardless of the sandbox's git-init boundary."""
+    hits = []
+    for parent in path.parents:
+        for name in ("CLAUDE.md", "AGENTS.md"):
+            candidate = parent / name
+            if candidate.exists():
+                hits.append(str(candidate))
+    return hits
+
+
 def run(cmd, prompt, cwd, env, timeout=180):
     proc = subprocess.run(
         cmd, input=prompt, capture_output=True, text=True,
@@ -52,6 +65,13 @@ def main():
     git_init(sandbox)
 
     haiku = "claude-haiku-4-5-20251001"
+
+    print("=== probe 0: no enclosing CLAUDE.md/AGENTS.md above the sandbox ===", flush=True)
+    hits = find_enclosing_configs(sandbox)
+    if hits:
+        print("FAIL: found %s" % ", ".join(hits))
+    else:
+        print("PASS: nothing above the sandbox for Claude Code's parent walk to find")
 
     print("=== probe 1: isolation (hooks-off overlay, scrubbed env, sandbox cwd) ===", flush=True)
     cmd = claude_argv() + [

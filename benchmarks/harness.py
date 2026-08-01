@@ -5,9 +5,17 @@ turns driven through `claude -p` (first turn) and `claude -p --resume` (later tu
 stream-json captured per turn. The vibemax condition injects the contract via
 --append-system-prompt, modeling the CLAUDE.md default-on install route.
 
-Isolation: children run with a settings overlay that disables all hooks, a scrubbed
-environment (no CLAUDE*/ANTHROPIC* vars), and cwd inside a git-inited sandbox so no
-enclosing project config bleeds in. Verify with smoke_probe.py before trusting runs.
+Isolation: children run with a settings overlay that disables all hooks and a
+scrubbed environment (no CLAUDE*/ANTHROPIC* vars); cwd is a git-inited sandbox
+(for the diffstat check, not isolation - Claude Code walks parent directories
+for CLAUDE.md/AGENTS.md regardless of git-init). What keeps enclosing project
+config out is the raw root defaulting outside any enclosing agent tree (a
+tempdir), so there's nothing above the sandbox to find. Grid v1 ran with a raw
+root under the author's agent tree; two transcripts show an enclosing
+CLAUDE.md bleeding through before this default changed. Both arms were
+affected equally, so that grid's A/B comparison stands. Verify with
+smoke_probe.py before trusting runs - it only catches leakage of the marker
+strings it is given.
 
 Re-runnable: completed job_ids in the results file are skipped, so a crashed run
 resumes where it stopped. Raw stream-json per turn lands under the raw dir.
