@@ -8,14 +8,14 @@ stream-json captured per turn. The vibemax condition injects the contract via
 Isolation: children run with a settings overlay that disables all hooks and a
 scrubbed environment (no CLAUDE*/ANTHROPIC* vars); cwd is a git-inited sandbox
 (for the diffstat check, not isolation - Claude Code walks parent directories
-for CLAUDE.md/AGENTS.md regardless of git-init). What keeps enclosing project
-config out is the raw root defaulting outside any enclosing agent tree (a
-tempdir), so there's nothing above the sandbox to find. Grid v1 ran with a raw
-root under the author's agent tree; two transcripts show an enclosing
-CLAUDE.md bleeding through before this default changed. Both arms were
-affected equally, so that grid's A/B comparison stands. Verify with
-smoke_probe.py before trusting runs - it only catches leakage of the marker
-strings it is given.
+for CLAUDE.md/AGENTS.md regardless of git-init). Enclosing project config stays
+out only when the raw root is outside every agent-config tree. The harness now
+refuses a root with CLAUDE.md/AGENTS.md above it; the tempdir default normally
+qualifies, but redirected tempdirs may not. Grid v1 ran with a raw root under
+the author's agent tree; two transcripts show an enclosing CLAUDE.md bleeding
+through. Both arms were affected equally, so that grid's A/B comparison stands.
+Verify with smoke_probe.py before trusting runs - its live leakage check only
+catches the marker strings it is given.
 
 Re-runnable: completed job_ids in the results file are skipped, so a crashed run
 resumes where it stopped. Raw stream-json per turn lands under the raw dir.
@@ -43,6 +43,17 @@ BENCH_DIR = Path(__file__).resolve().parent
 DEFAULT_RAW_ROOT = Path(
     os.environ.get("VIBEMAX_BENCH_RAW") or (Path(tempfile.gettempdir()) / "vibemax-bench")
 )
+
+
+def find_enclosing_configs(path):
+    """CLAUDE.md/AGENTS.md in any parent that a child session can walk."""
+    hits = []
+    for parent in path.parents:
+        for name in ("CLAUDE.md", "AGENTS.md"):
+            candidate = parent / name
+            if candidate.exists():
+                hits.append(str(candidate))
+    return hits
 
 RETRYABLE = re.compile(
     r"overloaded|rate.?limit|too many requests|\b429\b|\b5\d\d\b|timed? ?out"
@@ -370,7 +381,16 @@ def main():
     contract_text = load_contract()
     env = scrub_env()
 
-    raw_root = Path(args.raw_dir) if args.raw_dir else DEFAULT_RAW_ROOT / cfg["tag"]
+    raw_root = (
+        Path(args.raw_dir) if args.raw_dir else DEFAULT_RAW_ROOT / cfg["tag"]
+    ).resolve()
+    enclosing = find_enclosing_configs(raw_root / "_config_probe" / "ws")
+    if enclosing:
+        sys.exit(
+            "unsafe raw root: Claude Code would load enclosing agent config:\n- "
+            + "\n- ".join(enclosing)
+            + "\nSet VIBEMAX_BENCH_RAW or --raw-dir to a path outside that tree."
+        )
     raw_root.mkdir(parents=True, exist_ok=True)
     results_path = Path(args.results) if args.results else BENCH_DIR / "results" / (cfg["tag"] + ".jsonl")
     results_path.parent.mkdir(parents=True, exist_ok=True)

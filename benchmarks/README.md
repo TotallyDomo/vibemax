@@ -38,7 +38,9 @@ and a model grid, run headless through `claude -p`.
   CLAUDE.md/AGENTS.md, hook and enclosing-agent-config leakage into children,
   auth path, model IDs, resume mechanics. The leakage check is limited to the
   `VIBEMAX_PROBE_MARKERS` strings you configure to match *your* enclosing
-  setup - a CLEAN verdict is not proof of isolation beyond those markers.
+  setup - a CLEAN verdict is not proof of isolation beyond those markers. Both
+  the probe and harness refuse a raw root beneath an agent-config file before
+  starting any paid child session.
 - `hooks-off.json` - settings overlay passed to every child session.
 - `grid.json` / `pilot.json` - the full grid and the smoke-gate pilot.
 
@@ -54,7 +56,8 @@ From this directory:
 
 Raw stream-json and sandboxes land under `<tempdir>/vibemax-bench/` by default -
 set `VIBEMAX_BENCH_RAW` or pass `--raw-dir` to move them; summarized rows land in
-`results/<tag>.jsonl`.
+`results/<tag>.jsonl`. A redirected tempdir can itself sit under CLAUDE.md or
+AGENTS.md; if the preflight names one, choose a raw root outside that tree.
 
 The published `results/*.jsonl` keep each job's absolute sandbox path with the
 author's local root swapped for a neutral one. The substitutions are

@@ -15,7 +15,13 @@ from pathlib import Path
 
 BENCH_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(BENCH_DIR))
-from harness import claude_argv, scrub_env, git_init, DEFAULT_RAW_ROOT  # noqa: E402
+from harness import (  # noqa: E402
+    DEFAULT_RAW_ROOT,
+    claude_argv,
+    find_enclosing_configs,
+    git_init,
+    scrub_env,
+)
 
 # Strings the child must NOT be able to see. The two defaults catch this repo's own
 # style bleeding in; add whatever is distinctive about your enclosing agent setup
@@ -35,18 +41,6 @@ PROBE = (
 )
 
 
-def find_enclosing_configs(path):
-    """CLAUDE.md/AGENTS.md in any parent of path - what Claude Code's own
-    upward walk would find regardless of the sandbox's git-init boundary."""
-    hits = []
-    for parent in path.parents:
-        for name in ("CLAUDE.md", "AGENTS.md"):
-            candidate = parent / name
-            if candidate.exists():
-                hits.append(str(candidate))
-    return hits
-
-
 def run(cmd, prompt, cwd, env, timeout=180):
     proc = subprocess.run(
         cmd, input=prompt, capture_output=True, text=True,
@@ -57,7 +51,16 @@ def run(cmd, prompt, cwd, env, timeout=180):
 
 def main():
     env = scrub_env()
-    sandbox = DEFAULT_RAW_ROOT / "_smoke" / "ws"
+    sandbox = (DEFAULT_RAW_ROOT / "_smoke" / "ws").resolve()
+
+    print("=== probe 0: no enclosing CLAUDE.md/AGENTS.md above the sandbox ===", flush=True)
+    hits = find_enclosing_configs(sandbox)
+    if hits:
+        print("FAIL: found %s" % ", ".join(hits))
+        print("Set VIBEMAX_BENCH_RAW to a path outside that agent-config tree.")
+        return 1
+    print("PASS: nothing above the sandbox for Claude Code's parent walk to find")
+
     if sandbox.exists():
         shutil.rmtree(sandbox)
     sandbox.mkdir(parents=True)
@@ -65,13 +68,6 @@ def main():
     git_init(sandbox)
 
     haiku = "claude-haiku-4-5-20251001"
-
-    print("=== probe 0: no enclosing CLAUDE.md/AGENTS.md above the sandbox ===", flush=True)
-    hits = find_enclosing_configs(sandbox)
-    if hits:
-        print("FAIL: found %s" % ", ".join(hits))
-    else:
-        print("PASS: nothing above the sandbox for Claude Code's parent walk to find")
 
     print("=== probe 1: isolation (hooks-off overlay, scrubbed env, sandbox cwd) ===", flush=True)
     cmd = claude_argv() + [
@@ -138,7 +134,8 @@ def main():
         "OK" if "HELIOTROPE" in (outer5.get("result") or "").upper() else "FAIL",
         outer5.get("session_id") == sid,
     ))
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
